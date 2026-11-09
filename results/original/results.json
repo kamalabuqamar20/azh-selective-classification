@@ -1,0 +1,299 @@
+{
+  "run_label": "AI-assisted exploratory four-class AZH image benchmark",
+  "source": {
+    "repository": "https://github.com/uwm-bigdata/wound-classification-using-images-and-locations",
+    "commit": "e7dd90de113dcbd39665f2bd0e5613adeffff5fa",
+    "archive_sha256": {
+      "Train.zip": "ebfff40b57e626ae38e7d27b163cebd86c8ddf793b4f64b3fd8a9bef0d5eeddc",
+      "Test.zip": "55ef08b374b80bb3231d6fef106362f77c2becec1b79fb3dd2ce69a6d54c6760"
+    }
+  },
+  "dataset_audit": {
+    "raw_counts": {
+      "Train": {
+        "D": 139,
+        "P": 100,
+        "S": 122,
+        "V": 185,
+        "N": 75,
+        "BG": 75
+      },
+      "Test": {
+        "D": 46,
+        "P": 34,
+        "S": 42,
+        "V": 62,
+        "N": 25,
+        "BG": 25
+      }
+    },
+    "raw_images": 930,
+    "unique_images_after_exact_byte_and_pixel_dedup": 929,
+    "removed_duplicates": [
+      {
+        "match": "byte_identical",
+        "scope": "across_split",
+        "class": "S",
+        "count": 1
+      }
+    ],
+    "dimension_flag_counts_all_classes": {
+      "D": 0,
+      "P": 0,
+      "S": 15,
+      "V": 0,
+      "N": 2,
+      "BG": 0
+    },
+    "dimension_flag": "long side >700 px or short side >525 px, before fixed resize"
+  },
+  "class_map": {
+    "D": "Diabetic",
+    "P": "Pressure",
+    "S": "Surgical",
+    "V": "Venous"
+  },
+  "split_sizes": {
+    "model_fit": 381,
+    "temperature_fit": 82,
+    "joint_selector_fit": 82,
+    "test": 184
+  },
+  "split_classes": {
+    "model_fit": {
+      "Diabetic": 97,
+      "Pressure": 70,
+      "Surgical": 85,
+      "Venous": 129
+    },
+    "temperature_fit": {
+      "Diabetic": 21,
+      "Pressure": 15,
+      "Surgical": 18,
+      "Venous": 28
+    },
+    "joint_selector_fit": {
+      "Diabetic": 21,
+      "Pressure": 15,
+      "Surgical": 18,
+      "Venous": 28
+    },
+    "test": {
+      "Diabetic": 46,
+      "Pressure": 34,
+      "Surgical": 42,
+      "Venous": 62
+    }
+  },
+  "model": "L2 multinomial logistic regression on 512 local gradient-histogram and 192 local RGB-histogram features",
+  "temperature": 1.8155242773566402,
+  "test_unfiltered_accuracy": 0.5652173913043479,
+  "test_unfiltered_errors": 80,
+  "test_nll_before": 1.3060035038892344,
+  "test_nll_after": 1.0778214135439566,
+  "test_ece_10bins_before": 0.1978996301648234,
+  "test_ece_10bins_after": 0.0623018264881604,
+  "joint_selector_standardised_coefficients": [
+    0.6342974963890982,
+    -0.1309277423687127
+  ],
+  "selector_fit_accuracy_of_fixed_classifier": 0.5,
+  "primary_requested_coverage": 0.8,
+  "primary": {
+    "temperature_scaled_confidence": {
+      "accepted": 148,
+      "errors": 55,
+      "actual_coverage": 0.8043478260869565,
+      "risk": 0.3716216216216216,
+      "standardised_risk": 0.373513949057884,
+      "within_class_matched_risk": 0.3691275167785235,
+      "within_class_matched_accepted": 149,
+      "classes": {
+        "Diabetic": {
+          "n": 46,
+          "accepted": 40,
+          "errors": 17,
+          "coverage": 0.8695652173913043,
+          "risk": 0.425
+        },
+        "Pressure": {
+          "n": 34,
+          "accepted": 25,
+          "errors": 16,
+          "coverage": 0.7352941176470589,
+          "risk": 0.64
+        },
+        "Surgical": {
+          "n": 42,
+          "accepted": 34,
+          "errors": 14,
+          "coverage": 0.8095238095238095,
+          "risk": 0.4117647058823529
+        },
+        "Venous": {
+          "n": 62,
+          "accepted": 49,
+          "errors": 8,
+          "coverage": 0.7903225806451613,
+          "risk": 0.16326530612244897
+        }
+      }
+    },
+    "laplacian_variance": {
+      "accepted": 148,
+      "errors": 61,
+      "actual_coverage": 0.8043478260869565,
+      "risk": 0.41216216216216217,
+      "standardised_risk": 0.4161731233742103,
+      "within_class_matched_risk": 0.40268456375838924,
+      "within_class_matched_accepted": 149,
+      "classes": {
+        "Diabetic": {
+          "n": 46,
+          "accepted": 36,
+          "errors": 13,
+          "coverage": 0.782608695652174,
+          "risk": 0.3611111111111111
+        },
+        "Pressure": {
+          "n": 34,
+          "accepted": 26,
+          "errors": 16,
+          "coverage": 0.7647058823529411,
+          "risk": 0.6153846153846154
+        },
+        "Surgical": {
+          "n": 42,
+          "accepted": 32,
+          "errors": 14,
+          "coverage": 0.7619047619047619,
+          "risk": 0.4375
+        },
+        "Venous": {
+          "n": 62,
+          "accepted": 54,
+          "errors": 18,
+          "coverage": 0.8709677419354839,
+          "risk": 0.3333333333333333
+        }
+      }
+    },
+    "confidence_plus_laplacian": {
+      "accepted": 148,
+      "errors": 57,
+      "actual_coverage": 0.8043478260869565,
+      "risk": 0.38513513513513514,
+      "standardised_risk": 0.3876093584305408,
+      "within_class_matched_risk": 0.38926174496644295,
+      "within_class_matched_accepted": 149,
+      "classes": {
+        "Diabetic": {
+          "n": 46,
+          "accepted": 41,
+          "errors": 18,
+          "coverage": 0.8913043478260869,
+          "risk": 0.43902439024390244
+        },
+        "Pressure": {
+          "n": 34,
+          "accepted": 24,
+          "errors": 17,
+          "coverage": 0.7058823529411765,
+          "risk": 0.7083333333333334
+        },
+        "Surgical": {
+          "n": 42,
+          "accepted": 35,
+          "errors": 15,
+          "coverage": 0.8333333333333334,
+          "risk": 0.42857142857142855
+        },
+        "Venous": {
+          "n": 62,
+          "accepted": 48,
+          "errors": 7,
+          "coverage": 0.7741935483870968,
+          "risk": 0.14583333333333334
+        }
+      }
+    }
+  },
+  "paired_differences": {
+    "risk": {
+      "joint_minus_confidence": 0.013513513513513542,
+      "percentile_95_interval": [
+        -0.006925675675675706,
+        0.040709459459458565
+      ],
+      "valid_bootstrap_draws": 2000
+    },
+    "standardised_risk": {
+      "joint_minus_confidence": 0.014095409372656797,
+      "percentile_95_interval": [
+        -0.013482099659479373,
+        0.04925392274443452
+      ],
+      "valid_bootstrap_draws": 2000
+    },
+    "within_class_matched_risk": {
+      "joint_minus_confidence": 0.020134228187919434,
+      "percentile_95_interval": [
+        -0.01342281879194629,
+        0.040268456375838924
+      ],
+      "valid_bootstrap_draws": 2000
+    }
+  },
+  "secondary": {
+    "temperature_scaled_confidence": {
+      "aurc": 0.286374022125849,
+      "correctness_auroc": 0.6962740384615385
+    },
+    "laplacian_variance": {
+      "aurc": 0.42716909366090783,
+      "correctness_auroc": 0.5575721153846154
+    },
+    "confidence_plus_laplacian": {
+      "aurc": 0.3038429402104457,
+      "correctness_auroc": 0.6770432692307692
+    }
+  },
+  "test_focus_by_true_class": {
+    "Diabetic": {
+      "median": 133.64482285862005,
+      "q25": 86.9927897721895,
+      "q75": 215.80548320903767
+    },
+    "Pressure": {
+      "median": 139.40439812989763,
+      "q25": 88.47629315034013,
+      "q75": 231.88405039872347
+    },
+    "Surgical": {
+      "median": 146.18631403446946,
+      "q25": 91.57694552233704,
+      "q75": 217.21078394007955
+    },
+    "Venous": {
+      "median": 181.3855984440005,
+      "q25": 122.78602362835153,
+      "q75": 298.04505660872263
+    }
+  },
+  "settings": {
+    "split_seed": 42,
+    "bootstrap_seed": 20261108,
+    "bootstrap_draws": 2000,
+    "resize": [
+      128,
+      128
+    ]
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit_learn": "1.8.0",
+    "pillow": "13.0.0"
+  }
+}

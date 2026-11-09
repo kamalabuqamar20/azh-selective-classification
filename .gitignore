@@ -1,0 +1,16 @@
+# No third-party clinical images, archives, models, or local environments in Git.
+data/
+reproduced/
+*.zip
+*.jpg
+*.jpeg
+*.bmp
+*.tif
+*.tiff
+*.png
+!figures/*.png
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store

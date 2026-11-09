@@ -1,0 +1,1097 @@
+{
+  "analysis": "Five-fold image-level exploration within the original training pool",
+  "analysis_date": "2026-11-09",
+  "research_question": "Does the focus proxy add to a matched learned confidence selector?",
+  "retrospective_status": "Designed after the original test pilot was visible; not preregistered.",
+  "test_archive_used": "Read for exact deduplication only; no original-test predictions scored.",
+  "patient_or_source_grouping": false,
+  "dataset": {
+    "repository": "https://github.com/uwm-bigdata/wound-classification-using-images-and-locations",
+    "commit": "e7dd90de113dcbd39665f2bd0e5613adeffff5fa",
+    "training_images": 545,
+    "audit": {
+      "raw_counts": {
+        "Train": {
+          "D": 139,
+          "P": 100,
+          "S": 122,
+          "V": 185,
+          "N": 75,
+          "BG": 75
+        },
+        "Test": {
+          "D": 46,
+          "P": 34,
+          "S": 42,
+          "V": 62,
+          "N": 25,
+          "BG": 25
+        }
+      },
+      "raw_images": 930,
+      "unique_images_after_exact_byte_and_pixel_dedup": 929,
+      "removed_duplicates": [
+        {
+          "match": "byte_identical",
+          "scope": "across_split",
+          "class": "S",
+          "count": 1
+        }
+      ],
+      "dimension_flag_counts_all_classes": {
+        "D": 0,
+        "P": 0,
+        "S": 15,
+        "V": 0,
+        "N": 2,
+        "BG": 0
+      },
+      "dimension_flag": "long side >700 px or short side >525 px, before fixed resize"
+    }
+  },
+  "protocol": {
+    "outer_folds": 5,
+    "outer_seed": 20261109,
+    "inner_seed": 42,
+    "requested_coverage": 0.8,
+    "model": "same gradient/RGB histogram multinomial logistic regression as original pilot",
+    "learned_selector_comparison": "one- and two-feature logistic selectors fitted on the same data"
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "sizes": {
+        "model_fit": 305,
+        "calibration": 65,
+        "selector_fit": 66,
+        "outer_test": 109
+      },
+      "temperature": 2.053642533650032,
+      "unfiltered_errors": 48,
+      "unfiltered_accuracy": 0.5596330275229358,
+      "confidence_selector_slope": 0.5921956577847785,
+      "joint_selector_coefficients": [
+        0.6026051074010567,
+        0.16772895564671544
+      ],
+      "policies": {
+        "confidence": {
+          "accepted": 88,
+          "errors": 34,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.38636363636363635,
+          "standardised_risk": 0.40881652584883543,
+          "within_class_matched_risk": 0.39325842696629215,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 20,
+              "errors": 8,
+              "coverage": 0.7142857142857143,
+              "risk": 0.4
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 12,
+              "errors": 9,
+              "coverage": 0.6,
+              "risk": 0.75
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 23,
+              "errors": 9,
+              "coverage": 0.9583333333333334,
+              "risk": 0.391304347826087
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 33,
+              "errors": 8,
+              "coverage": 0.8918918918918919,
+              "risk": 0.24242424242424243
+            }
+          }
+        },
+        "focus": {
+          "accepted": 88,
+          "errors": 38,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.4318181818181818,
+          "standardised_risk": 0.42455477603885594,
+          "within_class_matched_risk": 0.42696629213483145,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 24,
+              "errors": 12,
+              "coverage": 0.8571428571428571,
+              "risk": 0.5
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 17,
+              "errors": 12,
+              "coverage": 0.85,
+              "risk": 0.7058823529411765
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 17,
+              "errors": 5,
+              "coverage": 0.7083333333333334,
+              "risk": 0.29411764705882354
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 30,
+              "errors": 9,
+              "coverage": 0.8108108108108109,
+              "risk": 0.3
+            }
+          }
+        },
+        "learned_confidence": {
+          "accepted": 88,
+          "errors": 34,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.38636363636363635,
+          "standardised_risk": 0.40881652584883543,
+          "within_class_matched_risk": 0.39325842696629215,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 20,
+              "errors": 8,
+              "coverage": 0.7142857142857143,
+              "risk": 0.4
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 12,
+              "errors": 9,
+              "coverage": 0.6,
+              "risk": 0.75
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 23,
+              "errors": 9,
+              "coverage": 0.9583333333333334,
+              "risk": 0.391304347826087
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 33,
+              "errors": 8,
+              "coverage": 0.8918918918918919,
+              "risk": 0.24242424242424243
+            }
+          }
+        },
+        "confidence_plus_focus": {
+          "accepted": 88,
+          "errors": 36,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.4090909090909091,
+          "standardised_risk": 0.4187031381623366,
+          "within_class_matched_risk": 0.4044943820224719,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 22,
+              "errors": 10,
+              "coverage": 0.7857142857142857,
+              "risk": 0.45454545454545453
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 14,
+              "errors": 9,
+              "coverage": 0.7,
+              "risk": 0.6428571428571429
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 19,
+              "errors": 7,
+              "coverage": 0.7916666666666666,
+              "risk": 0.3684210526315789
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 33,
+              "errors": 10,
+              "coverage": 0.8918918918918919,
+              "risk": 0.30303030303030304
+            }
+          }
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "sizes": {
+        "model_fit": 305,
+        "calibration": 65,
+        "selector_fit": 66,
+        "outer_test": 109
+      },
+      "temperature": 2.0993564034877092,
+      "unfiltered_errors": 46,
+      "unfiltered_accuracy": 0.5779816513761468,
+      "confidence_selector_slope": 0.4062385892438102,
+      "joint_selector_coefficients": [
+        0.3908379171588138,
+        0.38326249052377265
+      ],
+      "policies": {
+        "confidence": {
+          "accepted": 88,
+          "errors": 35,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.3977272727272727,
+          "standardised_risk": 0.4000990408673895,
+          "within_class_matched_risk": 0.39325842696629215,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 22,
+              "errors": 9,
+              "coverage": 0.7857142857142857,
+              "risk": 0.4090909090909091
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 16,
+              "errors": 11,
+              "coverage": 0.8,
+              "risk": 0.6875
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 18,
+              "errors": 6,
+              "coverage": 0.75,
+              "risk": 0.3333333333333333
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 32,
+              "errors": 9,
+              "coverage": 0.8648648648648649,
+              "risk": 0.28125
+            }
+          }
+        },
+        "focus": {
+          "accepted": 88,
+          "errors": 34,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.38636363636363635,
+          "standardised_risk": 0.39353141721988827,
+          "within_class_matched_risk": 0.4044943820224719,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 19,
+              "errors": 9,
+              "coverage": 0.6785714285714286,
+              "risk": 0.47368421052631576
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 17,
+              "errors": 11,
+              "coverage": 0.85,
+              "risk": 0.6470588235294118
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 19,
+              "errors": 7,
+              "coverage": 0.7916666666666666,
+              "risk": 0.3684210526315789
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 33,
+              "errors": 7,
+              "coverage": 0.8918918918918919,
+              "risk": 0.21212121212121213
+            }
+          }
+        },
+        "learned_confidence": {
+          "accepted": 88,
+          "errors": 35,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.3977272727272727,
+          "standardised_risk": 0.4000990408673895,
+          "within_class_matched_risk": 0.39325842696629215,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 22,
+              "errors": 9,
+              "coverage": 0.7857142857142857,
+              "risk": 0.4090909090909091
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 16,
+              "errors": 11,
+              "coverage": 0.8,
+              "risk": 0.6875
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 18,
+              "errors": 6,
+              "coverage": 0.75,
+              "risk": 0.3333333333333333
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 32,
+              "errors": 9,
+              "coverage": 0.8648648648648649,
+              "risk": 0.28125
+            }
+          }
+        },
+        "confidence_plus_focus": {
+          "accepted": 88,
+          "errors": 33,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.375,
+          "standardised_risk": 0.3821942261826376,
+          "within_class_matched_risk": 0.38202247191011235,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 19,
+              "errors": 8,
+              "coverage": 0.6785714285714286,
+              "risk": 0.42105263157894735
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 16,
+              "errors": 10,
+              "coverage": 0.8,
+              "risk": 0.625
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 20,
+              "errors": 7,
+              "coverage": 0.8333333333333334,
+              "risk": 0.35
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 33,
+              "errors": 8,
+              "coverage": 0.8918918918918919,
+              "risk": 0.24242424242424243
+            }
+          }
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "sizes": {
+        "model_fit": 305,
+        "calibration": 65,
+        "selector_fit": 66,
+        "outer_test": 109
+      },
+      "temperature": 2.5611928321195907,
+      "unfiltered_errors": 40,
+      "unfiltered_accuracy": 0.6330275229357798,
+      "confidence_selector_slope": 0.37629344406158644,
+      "joint_selector_coefficients": [
+        0.37750029773469734,
+        -0.01525244383231084
+      ],
+      "policies": {
+        "confidence": {
+          "accepted": 88,
+          "errors": 30,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.3409090909090909,
+          "standardised_risk": 0.3442108749718032,
+          "within_class_matched_risk": 0.3595505617977528,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 27,
+              "errors": 8,
+              "coverage": 0.9642857142857143,
+              "risk": 0.2962962962962963
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 16,
+              "errors": 8,
+              "coverage": 0.8,
+              "risk": 0.5
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 17,
+              "errors": 8,
+              "coverage": 0.7083333333333334,
+              "risk": 0.47058823529411764
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 28,
+              "errors": 6,
+              "coverage": 0.7567567567567568,
+              "risk": 0.21428571428571427
+            }
+          }
+        },
+        "focus": {
+          "accepted": 88,
+          "errors": 32,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.36363636363636365,
+          "standardised_risk": 0.3648829221483853,
+          "within_class_matched_risk": 0.3707865168539326,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 22,
+              "errors": 5,
+              "coverage": 0.7857142857142857,
+              "risk": 0.22727272727272727
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 15,
+              "errors": 8,
+              "coverage": 0.75,
+              "risk": 0.5333333333333333
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 20,
+              "errors": 10,
+              "coverage": 0.8333333333333334,
+              "risk": 0.5
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 31,
+              "errors": 9,
+              "coverage": 0.8378378378378378,
+              "risk": 0.2903225806451613
+            }
+          }
+        },
+        "learned_confidence": {
+          "accepted": 88,
+          "errors": 30,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.3409090909090909,
+          "standardised_risk": 0.3442108749718032,
+          "within_class_matched_risk": 0.3595505617977528,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 27,
+              "errors": 8,
+              "coverage": 0.9642857142857143,
+              "risk": 0.2962962962962963
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 16,
+              "errors": 8,
+              "coverage": 0.8,
+              "risk": 0.5
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 17,
+              "errors": 8,
+              "coverage": 0.7083333333333334,
+              "risk": 0.47058823529411764
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 28,
+              "errors": 6,
+              "coverage": 0.7567567567567568,
+              "risk": 0.21428571428571427
+            }
+          }
+        },
+        "confidence_plus_focus": {
+          "accepted": 88,
+          "errors": 30,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.3409090909090909,
+          "standardised_risk": 0.34232204604573735,
+          "within_class_matched_risk": 0.34831460674157305,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 27,
+              "errors": 8,
+              "coverage": 0.9642857142857143,
+              "risk": 0.2962962962962963
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 17,
+              "errors": 9,
+              "coverage": 0.85,
+              "risk": 0.5294117647058824
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 16,
+              "errors": 7,
+              "coverage": 0.6666666666666666,
+              "risk": 0.4375
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 28,
+              "errors": 6,
+              "coverage": 0.7567567567567568,
+              "risk": 0.21428571428571427
+            }
+          }
+        }
+      }
+    },
+    {
+      "fold": 4,
+      "sizes": {
+        "model_fit": 305,
+        "calibration": 65,
+        "selector_fit": 66,
+        "outer_test": 109
+      },
+      "temperature": 2.0937510287164396,
+      "unfiltered_errors": 56,
+      "unfiltered_accuracy": 0.4862385321100917,
+      "confidence_selector_slope": 0.971081979173303,
+      "joint_selector_coefficients": [
+        0.9131182592478659,
+        0.27742799188052475
+      ],
+      "policies": {
+        "confidence": {
+          "accepted": 88,
+          "errors": 41,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.4659090909090909,
+          "standardised_risk": 0.4644771025663148,
+          "within_class_matched_risk": 0.4606741573033708,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 22,
+              "errors": 12,
+              "coverage": 0.7857142857142857,
+              "risk": 0.5454545454545454
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 15,
+              "errors": 10,
+              "coverage": 0.75,
+              "risk": 0.6666666666666666
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 22,
+              "errors": 12,
+              "coverage": 0.9166666666666666,
+              "risk": 0.5454545454545454
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 29,
+              "errors": 7,
+              "coverage": 0.7837837837837838,
+              "risk": 0.2413793103448276
+            }
+          }
+        },
+        "focus": {
+          "accepted": 88,
+          "errors": 45,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.5113636363636364,
+          "standardised_risk": 0.5106550780621278,
+          "within_class_matched_risk": 0.5056179775280899,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 21,
+              "errors": 13,
+              "coverage": 0.75,
+              "risk": 0.6190476190476191
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 18,
+              "errors": 12,
+              "coverage": 0.9,
+              "risk": 0.6666666666666666
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 19,
+              "errors": 11,
+              "coverage": 0.7916666666666666,
+              "risk": 0.5789473684210527
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 30,
+              "errors": 9,
+              "coverage": 0.8108108108108109,
+              "risk": 0.3
+            }
+          }
+        },
+        "learned_confidence": {
+          "accepted": 88,
+          "errors": 41,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.4659090909090909,
+          "standardised_risk": 0.4644771025663148,
+          "within_class_matched_risk": 0.4606741573033708,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 22,
+              "errors": 12,
+              "coverage": 0.7857142857142857,
+              "risk": 0.5454545454545454
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 15,
+              "errors": 10,
+              "coverage": 0.75,
+              "risk": 0.6666666666666666
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 22,
+              "errors": 12,
+              "coverage": 0.9166666666666666,
+              "risk": 0.5454545454545454
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 29,
+              "errors": 7,
+              "coverage": 0.7837837837837838,
+              "risk": 0.2413793103448276
+            }
+          }
+        },
+        "confidence_plus_focus": {
+          "accepted": 88,
+          "errors": 39,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.4431818181818182,
+          "standardised_risk": 0.4464827289475152,
+          "within_class_matched_risk": 0.47191011235955055,
+          "within_class_matched_accepted": 89,
+          "classes": {
+            "Diabetic": {
+              "n": 28,
+              "accepted": 19,
+              "errors": 9,
+              "coverage": 0.6785714285714286,
+              "risk": 0.47368421052631576
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 15,
+              "errors": 10,
+              "coverage": 0.75,
+              "risk": 0.6666666666666666
+            },
+            "Surgical": {
+              "n": 24,
+              "accepted": 23,
+              "errors": 12,
+              "coverage": 0.9583333333333334,
+              "risk": 0.5217391304347826
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 31,
+              "errors": 8,
+              "coverage": 0.8378378378378378,
+              "risk": 0.25806451612903225
+            }
+          }
+        }
+      }
+    },
+    {
+      "fold": 5,
+      "sizes": {
+        "model_fit": 305,
+        "calibration": 65,
+        "selector_fit": 66,
+        "outer_test": 109
+      },
+      "temperature": 2.3237989688830862,
+      "unfiltered_errors": 53,
+      "unfiltered_accuracy": 0.5137614678899083,
+      "confidence_selector_slope": 1.3526947552643973,
+      "joint_selector_coefficients": [
+        1.3309974694487312,
+        -0.34095902094188935
+      ],
+      "policies": {
+        "confidence": {
+          "accepted": 88,
+          "errors": 40,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.45454545454545453,
+          "standardised_risk": 0.4632676353101268,
+          "within_class_matched_risk": 0.45454545454545453,
+          "within_class_matched_accepted": 88,
+          "classes": {
+            "Diabetic": {
+              "n": 27,
+              "accepted": 20,
+              "errors": 8,
+              "coverage": 0.7407407407407407,
+              "risk": 0.4
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 16,
+              "errors": 10,
+              "coverage": 0.8,
+              "risk": 0.625
+            },
+            "Surgical": {
+              "n": 25,
+              "accepted": 19,
+              "errors": 13,
+              "coverage": 0.76,
+              "risk": 0.6842105263157895
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 33,
+              "errors": 9,
+              "coverage": 0.8918918918918919,
+              "risk": 0.2727272727272727
+            }
+          }
+        },
+        "focus": {
+          "accepted": 88,
+          "errors": 43,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.48863636363636365,
+          "standardised_risk": 0.48709685709146044,
+          "within_class_matched_risk": 0.48863636363636365,
+          "within_class_matched_accepted": 88,
+          "classes": {
+            "Diabetic": {
+              "n": 27,
+              "accepted": 21,
+              "errors": 8,
+              "coverage": 0.7777777777777778,
+              "risk": 0.38095238095238093
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 17,
+              "errors": 11,
+              "coverage": 0.85,
+              "risk": 0.6470588235294118
+            },
+            "Surgical": {
+              "n": 25,
+              "accepted": 20,
+              "errors": 16,
+              "coverage": 0.8,
+              "risk": 0.8
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 30,
+              "errors": 8,
+              "coverage": 0.8108108108108109,
+              "risk": 0.26666666666666666
+            }
+          }
+        },
+        "learned_confidence": {
+          "accepted": 88,
+          "errors": 40,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.45454545454545453,
+          "standardised_risk": 0.4632676353101268,
+          "within_class_matched_risk": 0.45454545454545453,
+          "within_class_matched_accepted": 88,
+          "classes": {
+            "Diabetic": {
+              "n": 27,
+              "accepted": 20,
+              "errors": 8,
+              "coverage": 0.7407407407407407,
+              "risk": 0.4
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 16,
+              "errors": 10,
+              "coverage": 0.8,
+              "risk": 0.625
+            },
+            "Surgical": {
+              "n": 25,
+              "accepted": 19,
+              "errors": 13,
+              "coverage": 0.76,
+              "risk": 0.6842105263157895
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 33,
+              "errors": 9,
+              "coverage": 0.8918918918918919,
+              "risk": 0.2727272727272727
+            }
+          }
+        },
+        "confidence_plus_focus": {
+          "accepted": 88,
+          "errors": 38,
+          "actual_coverage": 0.8073394495412844,
+          "risk": 0.4318181818181818,
+          "standardised_risk": 0.445053067098399,
+          "within_class_matched_risk": 0.4318181818181818,
+          "within_class_matched_accepted": 88,
+          "classes": {
+            "Diabetic": {
+              "n": 27,
+              "accepted": 20,
+              "errors": 8,
+              "coverage": 0.7407407407407407,
+              "risk": 0.4
+            },
+            "Pressure": {
+              "n": 20,
+              "accepted": 16,
+              "errors": 9,
+              "coverage": 0.8,
+              "risk": 0.5625
+            },
+            "Surgical": {
+              "n": 25,
+              "accepted": 18,
+              "errors": 12,
+              "coverage": 0.72,
+              "risk": 0.6666666666666666
+            },
+            "Venous": {
+              "n": 37,
+              "accepted": 34,
+              "errors": 9,
+              "coverage": 0.918918918918919,
+              "risk": 0.2647058823529412
+            }
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "confidence": {
+      "test_images": 545,
+      "accepted": 440,
+      "errors": 180,
+      "coverage": 0.8073394495412844,
+      "risk": 0.4090909090909091,
+      "class_standardised_risk": 0.41388331213723345,
+      "classes": {
+        "Diabetic": {
+          "n": 139,
+          "accepted": 111,
+          "errors": 45,
+          "coverage": 0.7985611510791367,
+          "risk": 0.40540540540540543
+        },
+        "Pressure": {
+          "n": 100,
+          "accepted": 75,
+          "errors": 48,
+          "coverage": 0.75,
+          "risk": 0.64
+        },
+        "Surgical": {
+          "n": 121,
+          "accepted": 99,
+          "errors": 48,
+          "coverage": 0.8181818181818182,
+          "risk": 0.48484848484848486
+        },
+        "Venous": {
+          "n": 185,
+          "accepted": 155,
+          "errors": 39,
+          "coverage": 0.8378378378378378,
+          "risk": 0.25161290322580643
+        }
+      }
+    },
+    "focus": {
+      "test_images": 545,
+      "accepted": 440,
+      "errors": 192,
+      "coverage": 0.8073394495412844,
+      "risk": 0.43636363636363634,
+      "class_standardised_risk": 0.43707680884844835,
+      "classes": {
+        "Diabetic": {
+          "n": 139,
+          "accepted": 107,
+          "errors": 47,
+          "coverage": 0.7697841726618705,
+          "risk": 0.4392523364485981
+        },
+        "Pressure": {
+          "n": 100,
+          "accepted": 84,
+          "errors": 54,
+          "coverage": 0.84,
+          "risk": 0.6428571428571429
+        },
+        "Surgical": {
+          "n": 121,
+          "accepted": 95,
+          "errors": 49,
+          "coverage": 0.7851239669421488,
+          "risk": 0.5157894736842106
+        },
+        "Venous": {
+          "n": 185,
+          "accepted": 154,
+          "errors": 42,
+          "coverage": 0.8324324324324325,
+          "risk": 0.2727272727272727
+        }
+      }
+    },
+    "learned_confidence": {
+      "test_images": 545,
+      "accepted": 440,
+      "errors": 180,
+      "coverage": 0.8073394495412844,
+      "risk": 0.4090909090909091,
+      "class_standardised_risk": 0.41388331213723345,
+      "classes": {
+        "Diabetic": {
+          "n": 139,
+          "accepted": 111,
+          "errors": 45,
+          "coverage": 0.7985611510791367,
+          "risk": 0.40540540540540543
+        },
+        "Pressure": {
+          "n": 100,
+          "accepted": 75,
+          "errors": 48,
+          "coverage": 0.75,
+          "risk": 0.64
+        },
+        "Surgical": {
+          "n": 121,
+          "accepted": 99,
+          "errors": 48,
+          "coverage": 0.8181818181818182,
+          "risk": 0.48484848484848486
+        },
+        "Venous": {
+          "n": 185,
+          "accepted": 155,
+          "errors": 39,
+          "coverage": 0.8378378378378378,
+          "risk": 0.25161290322580643
+        }
+      }
+    },
+    "confidence_plus_focus": {
+      "test_images": 545,
+      "accepted": 440,
+      "errors": 176,
+      "coverage": 0.8073394495412844,
+      "risk": 0.4,
+      "class_standardised_risk": 0.4046594052408178,
+      "classes": {
+        "Diabetic": {
+          "n": 139,
+          "accepted": 107,
+          "errors": 43,
+          "coverage": 0.7697841726618705,
+          "risk": 0.40186915887850466
+        },
+        "Pressure": {
+          "n": 100,
+          "accepted": 78,
+          "errors": 47,
+          "coverage": 0.78,
+          "risk": 0.6025641025641025
+        },
+        "Surgical": {
+          "n": 121,
+          "accepted": 96,
+          "errors": 45,
+          "coverage": 0.7933884297520661,
+          "risk": 0.46875
+        },
+        "Venous": {
+          "n": 185,
+          "accepted": 159,
+          "errors": 41,
+          "coverage": 0.8594594594594595,
+          "risk": 0.2578616352201258
+        }
+      }
+    }
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit_learn": "1.8.0"
+  }
+}

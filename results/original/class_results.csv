@@ -1,0 +1,13 @@
+selector,true_class,test_images,accepted,errors,coverage,risk
+temperature_scaled_confidence,Diabetic,46,40,17,0.8695652173913043,0.425
+temperature_scaled_confidence,Pressure,34,25,16,0.7352941176470589,0.64
+temperature_scaled_confidence,Surgical,42,34,14,0.8095238095238095,0.4117647058823529
+temperature_scaled_confidence,Venous,62,49,8,0.7903225806451613,0.16326530612244897
+laplacian_variance,Diabetic,46,36,13,0.782608695652174,0.3611111111111111
+laplacian_variance,Pressure,34,26,16,0.7647058823529411,0.6153846153846154
+laplacian_variance,Surgical,42,32,14,0.7619047619047619,0.4375
+laplacian_variance,Venous,62,54,18,0.8709677419354839,0.3333333333333333
+confidence_plus_laplacian,Diabetic,46,41,18,0.8913043478260869,0.43902439024390244
+confidence_plus_laplacian,Pressure,34,24,17,0.7058823529411765,0.7083333333333334
+confidence_plus_laplacian,Surgical,42,35,15,0.8333333333333334,0.42857142857142855
+confidence_plus_laplacian,Venous,62,48,7,0.7741935483870968,0.14583333333333334
