@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+from dataclasses import dataclass
 import json
 from pathlib import Path
 import platform
@@ -34,12 +35,29 @@ COVERAGE = .80
 POLICIES = ("confidence", "focus", "learned_confidence", "confidence_plus_focus")
 
 
-def evaluate_fold(x, focus, labels, outer_train, outer_test, fold_number):
-    """Fit each component inside an outer fold, then evaluate its held-out fold."""
-    model_idx, calibration_idx, selector_idx = inner_partitions(labels, outer_train, seed=INNER_SEED)
-    partitions = [set(x.tolist()) for x in (model_idx, calibration_idx, selector_idx, outer_test)]
-    assert sum(map(len, partitions)) == len(set.union(*partitions))
+@dataclass(frozen=True)
+class FittedFold:
+    """Components fitted on clean inner data; held-out data are never used here."""
+    model: object
+    temperature: float
+    confidence_selector: object
+    joint_selector: object
+    model_idx: np.ndarray
+    calibration_idx: np.ndarray
+    selector_idx: np.ndarray
 
+    def predict(self, features, focus):
+        logits = self.model.decision_function(features)
+        probabilities = softmax(logits / self.temperature, axis=1)
+        scores = scores_for_policies(
+            probabilities, focus, self.confidence_selector, self.joint_selector
+        )
+        return self.model.classes_[logits.argmax(axis=1)], scores
+
+
+def fit_fold(x, focus, labels, outer_train, fold_number):
+    """Fit the classifier, calibration and selectors using clean outer-train data."""
+    model_idx, calibration_idx, selector_idx = inner_partitions(labels, outer_train, seed=INNER_SEED)
     model = make_pipeline(StandardScaler(), LogisticRegression(C=.1, max_iter=1000, solver="lbfgs"))
     model.fit(x[model_idx], labels[model_idx])
     classes = model.classes_
@@ -57,21 +75,29 @@ def evaluate_fold(x, focus, labels, outer_train, outer_test, fold_number):
     selector_probs = softmax(selector_logits / temperature, axis=1)
     selector_correct = (classes[selector_logits.argmax(axis=1)] == labels[selector_idx]).astype(int)
     one, joint = fit_correctness_selectors(selector_probs, focus[selector_idx], selector_correct)
+    return FittedFold(model, temperature, one, joint, model_idx, calibration_idx, selector_idx)
+
+
+def evaluate_fold(x, focus, labels, outer_train, outer_test, fold_number):
+    """Fit each component inside an outer fold, then evaluate its held-out fold."""
+    fitted = fit_fold(x, focus, labels, outer_train, fold_number)
+    partitions = [set(part.tolist()) for part in (
+        fitted.model_idx, fitted.calibration_idx, fitted.selector_idx, outer_test
+    )]
+    assert sum(map(len, partitions)) == len(set.union(*partitions))
 
     # No outer-fold labels are accessed for fitting the model, calibration or selectors.
-    test_logits = model.decision_function(x[outer_test])
-    test_probs = softmax(test_logits / temperature, axis=1)
-    scores = scores_for_policies(test_probs, focus[outer_test], one, joint)
-    errors = (classes[test_logits.argmax(axis=1)] != labels[outer_test]).astype(int)
+    predictions, scores = fitted.predict(x[outer_test], focus[outer_test])
+    errors = (predictions != labels[outer_test]).astype(int)
     return {
         "fold": fold_number,
-        "sizes": {"model_fit": len(model_idx), "calibration": len(calibration_idx),
-                  "selector_fit": len(selector_idx), "outer_test": len(outer_test)},
-        "temperature": temperature,
+        "sizes": {"model_fit": len(fitted.model_idx), "calibration": len(fitted.calibration_idx),
+                  "selector_fit": len(fitted.selector_idx), "outer_test": len(outer_test)},
+        "temperature": fitted.temperature,
         "unfiltered_errors": int(errors.sum()),
         "unfiltered_accuracy": float(1-errors.mean()),
-        "confidence_selector_slope": float(one[-1].coef_[0, 0]),
-        "joint_selector_coefficients": [float(v) for v in joint[-1].coef_[0]],
+        "confidence_selector_slope": float(fitted.confidence_selector[-1].coef_[0, 0]),
+        "joint_selector_coefficients": [float(v) for v in fitted.joint_selector[-1].coef_[0]],
         "policies": {name: validated_risk(errors, labels[outer_test], scores[name], COVERAGE)
                      for name in POLICIES},
     }

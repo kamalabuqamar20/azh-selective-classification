@@ -30,6 +30,14 @@ A later **five-fold, image-level** analysis within the original training pool ga
 
 These findings show why a single aggregate score is not enough. [Detailed results](docs/RESULTS.md) include per-class retention, class-reweighted risk and the fold-level comparison.
 
+## Controlled blur follow-up
+
+We applied four levels of synthetic Gaussian blur to the **same held-out images** in the five training-pool folds, keeping each fold's classifier, calibration and selectors fixed. At the strongest tested blur, retained error at matched 80.73% coverage was **55.00%** for learned confidence and **55.23%** for confidence plus focus. This exploratory comparison does not show an added benefit from the focus measure.
+
+When thresholds chosen on clean calibration scores were held fixed instead, the two rules retained different fractions of the blurred images: **88.81%** for learned confidence and **54.86%** for the joint rule at that blur level. Their resulting error rates therefore describe different selected sets and review loads. The experiment is synthetic, image-level and not a test on independently identified patients. See the [protocol, results and limitations](docs/BLUR_SENSITIVITY.md).
+
+![Synthetic blur sensitivity curves](figures/blur_sensitivity.png)
+
 ## Study design
 
 | Stage | What was done |
@@ -68,11 +76,13 @@ To download the two pinned archives **only after reviewing the upstream data ter
 ```bash
 python run_azh_pilot.py --download --data-dir data/raw --output reproduced/original
 python run_train_cv.py --data-dir data/raw --output reproduced/train_cv
-python verify_results.py --original reproduced/original --train-cv reproduced/train_cv
+python run_blur_sensitivity.py --data-dir data/raw --output reproduced/blur_sensitivity
+python verify_results.py --original reproduced/original --train-cv reproduced/train_cv --blur reproduced/blur_sensitivity
 python make_figures.py --original reproduced/original --train-cv reproduced/train_cv --output reproduced/figures
+python make_blur_figures.py --results reproduced/blur_sensitivity --output reproduced/figures
 ```
 
-On PowerShell, the same four `python` commands work after activation. If the verified `Train.zip` and `Test.zip` are already in `data/raw`, omit `--download`. Each archive is checked against a pinned SHA-256 hash; no image is written into the results. The included `results/` and `figures/` are the actual aggregate outputs from these runs. The comparison script checks the reproduced JSON against those outputs; tiny floating-point differences are allowed, while changed retained counts are reported.
+On PowerShell, the same `python` commands work after activation. If the verified `Train.zip` and `Test.zip` are already in `data/raw`, omit `--download`. Each archive is checked against a pinned SHA-256 hash; no image is written into the results. The included `results/` and `figures/` are the actual aggregate outputs from these runs. The comparison script checks the reproduced JSON against those outputs; tiny floating-point differences are allowed, while changed retained counts are reported.
 
 The included GitHub Actions workflow runs synthetic tests on a push or pull request; it does not download the dataset. **It has been tested locally, but has not yet run on GitHub.**
 
@@ -80,10 +90,11 @@ The included GitHub Actions workflow runs synthetic tests on a push or pull requ
 
 - [`run_azh_pilot.py`](run_azh_pilot.py) — original test-split pilot, preserved for reproduction.
 - [`run_train_cv.py`](run_train_cv.py) and [`study_utils.py`](study_utils.py) — later training-pool sensitivity analysis and validated helpers.
+- [`run_blur_sensitivity.py`](run_blur_sensitivity.py) and [`make_blur_figures.py`](make_blur_figures.py) — paired synthetic-blur analysis and its aggregate figure.
 - [`verify_results.py`](verify_results.py) and [`make_figures.py`](make_figures.py) — output comparison and figure generation.
 - [`results/`](results/) and [`figures/`](figures/) — aggregate numeric outputs and plots.
 - [`tests/`](tests/) — synthetic checks for splits, metrics, input validation and calibration caveats.
-- [`docs/METHODS.md`](docs/METHODS.md), [`docs/RESULTS.md`](docs/RESULTS.md), [`docs/DATA_AND_LIMITATIONS.md`](docs/DATA_AND_LIMITATIONS.md) and [`docs/FUTURE_WORK.md`](docs/FUTURE_WORK.md) — research reasoning and scope.
+- [`docs/METHODS.md`](docs/METHODS.md), [`docs/RESULTS.md`](docs/RESULTS.md), [`docs/BLUR_SENSITIVITY.md`](docs/BLUR_SENSITIVITY.md), [`docs/DATA_AND_LIMITATIONS.md`](docs/DATA_AND_LIMITATIONS.md) and [`docs/FUTURE_WORK.md`](docs/FUTURE_WORK.md) — research reasoning and scope.
 
 ## Limits and data rights
 

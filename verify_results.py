@@ -45,6 +45,8 @@ def main():
                         help="Directory containing reproduced original results.json")
     parser.add_argument("--train-cv",type=Path,required=True,
                         help="Directory containing reproduced train CV summary.json")
+    parser.add_argument("--blur",type=Path,
+                        help="Optional directory containing reproduced blur sensitivity summary.json")
     parser.add_argument("--atol",type=float,default=1e-8,
                         help="Absolute and relative float tolerance, default 1e-8")
     args=parser.parse_args()
@@ -53,6 +55,8 @@ def main():
     root=Path(__file__).resolve().parent
     pairs=[(root/"results/original/results.json",args.original/"results.json"),
            (root/"results/train_cv/summary.json",args.train_cv/"summary.json")]
+    if args.blur is not None:
+        pairs.append((root/"results/blur_sensitivity/summary.json",args.blur/"summary.json"))
     issues=[]
     for reference,reproduced in pairs:
         expected=json.loads(reference.read_text(encoding="utf-8"))
@@ -65,7 +69,8 @@ def main():
         if len(issues)>50:
             print(f"... {len(issues)-50} more")
         raise SystemExit(1)
-    print("Original and training-pool outputs match the recorded results.")
+    label = "Original, training-pool and blur outputs" if args.blur is not None else "Original and training-pool outputs"
+    print(f"{label} match the recorded results.")
 
 
 if __name__=="__main__":
