@@ -116,5 +116,4 @@ across groups, so an overall error reduction alone would not show safety or
 clinical value.
 
 The evaluation and code are intended as a research foundation, not an
-autonomous diagnosis, triage or treatment system. The initial experimental
-implementation and analysis were developed with AI assistance.
+autonomous diagnosis, triage or treatment system.
