@@ -25,4 +25,4 @@ jobs:
       - name: Run synthetic offline tests
         run: python -m unittest discover -s tests -v
       - name: Check Python syntax
-        run: python -m compileall -q run_azh_pilot.py run_train_cv.py run_blur_sensitivity.py study_utils.py make_figures.py make_blur_figures.py verify_results.py
+        run: python -m compileall -q run_azh_pilot.py run_train_cv.py run_blur_sensitivity.py run_pretrained_comparison.py run_calibration_audit.py run_split_sensitivity.py run_lutseg_patient_pilot.py lutseg_data.py audit_lutseg_masks.py audit_woundsdb.py patient_splits.py study_utils.py make_figures.py make_blur_figures.py make_pretrained_figure.py make_calibration_figure.py make_split_figure.py make_lutseg_figure.py verify_results.py

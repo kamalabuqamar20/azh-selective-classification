@@ -2,6 +2,8 @@
 data/
 reproduced/
 *.zip
+*.pth
+*.pt
 *.jpg
 *.jpeg
 *.bmp

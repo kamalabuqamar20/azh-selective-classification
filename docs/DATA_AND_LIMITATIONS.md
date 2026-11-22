@@ -2,7 +2,7 @@
 
 ## Source
 
-The image archives originate from the University of Wisconsin–Milwaukee Big Data Lab's [wound classification release](https://github.com/uwm-bigdata/wound-classification-using-images-and-locations), pinned at commit `e7dd90de113dcbd39665f2bd0e5613adeffff5fa`. The authors describe four wound types and two capture devices; some patients contributed more than one image. The code does not have patient- or device-level grouping.
+The AZH image archives originate from the University of Wisconsin–Milwaukee Big Data Lab's [wound classification release](https://github.com/uwm-bigdata/wound-classification-using-images-and-locations), pinned at commit `e7dd90de113dcbd39665f2bd0e5613adeffff5fa`. The authors describe four wound types and two capture devices; some patients contributed more than one image. The AZH release available here does not have patient- or device-level grouping. A [separate LUTSeg patient-grouped pilot](LUTSEG_PATIENT_PILOT.md) uses a different source and tissue-presence target.
 
 | Archive | SHA-256 |
 |---|---|
@@ -22,7 +22,7 @@ The repository contains no images or individual-level records. It includes aggre
 
 - **Different task:** AZH wound type is not the infection/ischaemia classification task proposed for DFUC2021.
 - **Image-level splitting:** exact-match removal cannot rule out near-duplicates or repeated patients. Grouped validation requires reliable identifiers.
-- **Single setting:** one source dataset, one handcrafted-feature classifier, one focus proxy and limited sample sizes do not establish external performance.
+- **Single setting for AZH:** one source dataset, a handcrafted-feature classifier and a frozen pretrained-feature comparison, one focus proxy and limited sample sizes do not establish external performance. The pretrained analysis is described in [PRETRAINED_COMPARISON.md](PRETRAINED_COMPARISON.md). The separate LUTSeg experiment is not an external test of this AZH task or classifier.
 - **Retrospective analysis:** the original test result was inspected before designing the training-pool follow-up. Neither run is a preregistered confirmatory test.
 - **Operational threshold:** the reported matched-coverage selection uses the test pool's score ordering. A deployed system would need a threshold fixed without access to the target test pool.
 - **Clinical applicability:** no clinical usability, benefit, patient outcome, clinician agreement or prospective validation is established.

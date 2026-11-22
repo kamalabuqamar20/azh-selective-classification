@@ -1,0 +1,536 @@
+{
+  "analysis": "Exploratory sensitivity to five image-level outer split seeds",
+  "retrospective_status": "Designed after earlier results were visible; not preregistered.",
+  "dataset": {
+    "repository": "https://github.com/uwm-bigdata/wound-classification-using-images-and-locations",
+    "commit": "e7dd90de113dcbd39665f2bd0e5613adeffff5fa",
+    "training_images": 545,
+    "audit": {
+      "raw_counts": {
+        "Train": {
+          "D": 139,
+          "P": 100,
+          "S": 122,
+          "V": 185,
+          "N": 75,
+          "BG": 75
+        },
+        "Test": {
+          "D": 46,
+          "P": 34,
+          "S": 42,
+          "V": 62,
+          "N": 25,
+          "BG": 25
+        }
+      },
+      "raw_images": 930,
+      "unique_images_after_exact_byte_and_pixel_dedup": 929,
+      "removed_duplicates": [
+        {
+          "match": "byte_identical",
+          "scope": "across_split",
+          "class": "S",
+          "count": 1
+        }
+      ],
+      "dimension_flag_counts_all_classes": {
+        "D": 0,
+        "P": 0,
+        "S": 15,
+        "V": 0,
+        "N": 2,
+        "BG": 0
+      },
+      "dimension_flag": "long side >700 px or short side >525 px, before fixed resize"
+    }
+  },
+  "protocol": {
+    "outer_seeds": [
+      20261109,
+      20261110,
+      20261111,
+      20261112,
+      20261113
+    ],
+    "outer_folds": 5,
+    "inner_seed": 42,
+    "requested_coverage": 0.8,
+    "retained_per_seed": 440,
+    "comparison": "Like-for-like learned confidence versus learned confidence plus focus; ranking within each held-out fold.",
+    "test_archive": "Read for exact deduplication only; no original-test predictions are scored.",
+    "patient_or_source_grouping": false,
+    "dependence": "The same images and overlapping training pools recur across seeds; these are not independent replications or confidence intervals.",
+    "weights_url": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+    "weights_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec"
+  },
+  "rows": [
+    {
+      "seed": 20261109,
+      "model": "handcrafted",
+      "images": 545,
+      "unfiltered_errors": 243,
+      "accepted": 440,
+      "confidence_errors": 180,
+      "confidence_risk": 0.4090909090909091,
+      "joint_errors": 176,
+      "joint_risk": 0.4,
+      "joint_minus_confidence": -0.009090909090909094,
+      "fold_counts": [
+        {
+          "fold": 1,
+          "held_out": 109,
+          "confidence_errors": 34,
+          "joint_errors": 36
+        },
+        {
+          "fold": 2,
+          "held_out": 109,
+          "confidence_errors": 35,
+          "joint_errors": 33
+        },
+        {
+          "fold": 3,
+          "held_out": 109,
+          "confidence_errors": 30,
+          "joint_errors": 30
+        },
+        {
+          "fold": 4,
+          "held_out": 109,
+          "confidence_errors": 41,
+          "joint_errors": 39
+        },
+        {
+          "fold": 5,
+          "held_out": 109,
+          "confidence_errors": 40,
+          "joint_errors": 38
+        }
+      ]
+    },
+    {
+      "seed": 20261109,
+      "model": "frozen_resnet18",
+      "images": 545,
+      "unfiltered_errors": 165,
+      "accepted": 440,
+      "confidence_errors": 109,
+      "confidence_risk": 0.24772727272727274,
+      "joint_errors": 114,
+      "joint_risk": 0.2590909090909091,
+      "joint_minus_confidence": 0.011363636363636354,
+      "fold_counts": [
+        {
+          "fold": 1,
+          "held_out": 109,
+          "confidence_errors": 23,
+          "joint_errors": 23
+        },
+        {
+          "fold": 2,
+          "held_out": 109,
+          "confidence_errors": 22,
+          "joint_errors": 22
+        },
+        {
+          "fold": 3,
+          "held_out": 109,
+          "confidence_errors": 13,
+          "joint_errors": 16
+        },
+        {
+          "fold": 4,
+          "held_out": 109,
+          "confidence_errors": 24,
+          "joint_errors": 26
+        },
+        {
+          "fold": 5,
+          "held_out": 109,
+          "confidence_errors": 27,
+          "joint_errors": 27
+        }
+      ]
+    },
+    {
+      "seed": 20261110,
+      "model": "handcrafted",
+      "images": 545,
+      "unfiltered_errors": 255,
+      "accepted": 440,
+      "confidence_errors": 181,
+      "confidence_risk": 0.4113636363636364,
+      "joint_errors": 182,
+      "joint_risk": 0.41363636363636364,
+      "joint_minus_confidence": 0.0022727272727272596,
+      "fold_counts": [
+        {
+          "fold": 1,
+          "held_out": 109,
+          "confidence_errors": 32,
+          "joint_errors": 33
+        },
+        {
+          "fold": 2,
+          "held_out": 109,
+          "confidence_errors": 33,
+          "joint_errors": 35
+        },
+        {
+          "fold": 3,
+          "held_out": 109,
+          "confidence_errors": 44,
+          "joint_errors": 43
+        },
+        {
+          "fold": 4,
+          "held_out": 109,
+          "confidence_errors": 39,
+          "joint_errors": 38
+        },
+        {
+          "fold": 5,
+          "held_out": 109,
+          "confidence_errors": 33,
+          "joint_errors": 33
+        }
+      ]
+    },
+    {
+      "seed": 20261110,
+      "model": "frozen_resnet18",
+      "images": 545,
+      "unfiltered_errors": 180,
+      "accepted": 440,
+      "confidence_errors": 113,
+      "confidence_risk": 0.25681818181818183,
+      "joint_errors": 119,
+      "joint_risk": 0.27045454545454545,
+      "joint_minus_confidence": 0.013636363636363613,
+      "fold_counts": [
+        {
+          "fold": 1,
+          "held_out": 109,
+          "confidence_errors": 18,
+          "joint_errors": 18
+        },
+        {
+          "fold": 2,
+          "held_out": 109,
+          "confidence_errors": 23,
+          "joint_errors": 24
+        },
+        {
+          "fold": 3,
+          "held_out": 109,
+          "confidence_errors": 27,
+          "joint_errors": 27
+        },
+        {
+          "fold": 4,
+          "held_out": 109,
+          "confidence_errors": 25,
+          "joint_errors": 29
+        },
+        {
+          "fold": 5,
+          "held_out": 109,
+          "confidence_errors": 20,
+          "joint_errors": 21
+        }
+      ]
+    },
+    {
+      "seed": 20261111,
+      "model": "handcrafted",
+      "images": 545,
+      "unfiltered_errors": 258,
+      "accepted": 440,
+      "confidence_errors": 187,
+      "confidence_risk": 0.425,
+      "joint_errors": 189,
+      "joint_risk": 0.42954545454545456,
+      "joint_minus_confidence": 0.004545454545454575,
+      "fold_counts": [
+        {
+          "fold": 1,
+          "held_out": 109,
+          "confidence_errors": 40,
+          "joint_errors": 40
+        },
+        {
+          "fold": 2,
+          "held_out": 109,
+          "confidence_errors": 37,
+          "joint_errors": 38
+        },
+        {
+          "fold": 3,
+          "held_out": 109,
+          "confidence_errors": 39,
+          "joint_errors": 38
+        },
+        {
+          "fold": 4,
+          "held_out": 109,
+          "confidence_errors": 33,
+          "joint_errors": 32
+        },
+        {
+          "fold": 5,
+          "held_out": 109,
+          "confidence_errors": 38,
+          "joint_errors": 41
+        }
+      ]
+    },
+    {
+      "seed": 20261111,
+      "model": "frozen_resnet18",
+      "images": 545,
+      "unfiltered_errors": 181,
+      "accepted": 440,
+      "confidence_errors": 121,
+      "confidence_risk": 0.275,
+      "joint_errors": 121,
+      "joint_risk": 0.275,
+      "joint_minus_confidence": 0.0,
+      "fold_counts": [
+        {
+          "fold": 1,
+          "held_out": 109,
+          "confidence_errors": 25,
+          "joint_errors": 24
+        },
+        {
+          "fold": 2,
+          "held_out": 109,
+          "confidence_errors": 24,
+          "joint_errors": 25
+        },
+        {
+          "fold": 3,
+          "held_out": 109,
+          "confidence_errors": 25,
+          "joint_errors": 25
+        },
+        {
+          "fold": 4,
+          "held_out": 109,
+          "confidence_errors": 24,
+          "joint_errors": 24
+        },
+        {
+          "fold": 5,
+          "held_out": 109,
+          "confidence_errors": 23,
+          "joint_errors": 23
+        }
+      ]
+    },
+    {
+      "seed": 20261112,
+      "model": "handcrafted",
+      "images": 545,
+      "unfiltered_errors": 240,
+      "accepted": 440,
+      "confidence_errors": 179,
+      "confidence_risk": 0.4068181818181818,
+      "joint_errors": 179,
+      "joint_risk": 0.4068181818181818,
+      "joint_minus_confidence": 0.0,
+      "fold_counts": [
+        {
+          "fold": 1,
+          "held_out": 109,
+          "confidence_errors": 38,
+          "joint_errors": 37
+        },
+        {
+          "fold": 2,
+          "held_out": 109,
+          "confidence_errors": 39,
+          "joint_errors": 39
+        },
+        {
+          "fold": 3,
+          "held_out": 109,
+          "confidence_errors": 39,
+          "joint_errors": 39
+        },
+        {
+          "fold": 4,
+          "held_out": 109,
+          "confidence_errors": 29,
+          "joint_errors": 27
+        },
+        {
+          "fold": 5,
+          "held_out": 109,
+          "confidence_errors": 34,
+          "joint_errors": 37
+        }
+      ]
+    },
+    {
+      "seed": 20261112,
+      "model": "frozen_resnet18",
+      "images": 545,
+      "unfiltered_errors": 186,
+      "accepted": 440,
+      "confidence_errors": 130,
+      "confidence_risk": 0.29545454545454547,
+      "joint_errors": 133,
+      "joint_risk": 0.30227272727272725,
+      "joint_minus_confidence": 0.006818181818181779,
+      "fold_counts": [
+        {
+          "fold": 1,
+          "held_out": 109,
+          "confidence_errors": 26,
+          "joint_errors": 25
+        },
+        {
+          "fold": 2,
+          "held_out": 109,
+          "confidence_errors": 28,
+          "joint_errors": 26
+        },
+        {
+          "fold": 3,
+          "held_out": 109,
+          "confidence_errors": 25,
+          "joint_errors": 26
+        },
+        {
+          "fold": 4,
+          "held_out": 109,
+          "confidence_errors": 24,
+          "joint_errors": 28
+        },
+        {
+          "fold": 5,
+          "held_out": 109,
+          "confidence_errors": 27,
+          "joint_errors": 28
+        }
+      ]
+    },
+    {
+      "seed": 20261113,
+      "model": "handcrafted",
+      "images": 545,
+      "unfiltered_errors": 263,
+      "accepted": 440,
+      "confidence_errors": 194,
+      "confidence_risk": 0.4409090909090909,
+      "joint_errors": 196,
+      "joint_risk": 0.44545454545454544,
+      "joint_minus_confidence": 0.004545454545454519,
+      "fold_counts": [
+        {
+          "fold": 1,
+          "held_out": 109,
+          "confidence_errors": 35,
+          "joint_errors": 38
+        },
+        {
+          "fold": 2,
+          "held_out": 109,
+          "confidence_errors": 38,
+          "joint_errors": 37
+        },
+        {
+          "fold": 3,
+          "held_out": 109,
+          "confidence_errors": 43,
+          "joint_errors": 43
+        },
+        {
+          "fold": 4,
+          "held_out": 109,
+          "confidence_errors": 46,
+          "joint_errors": 46
+        },
+        {
+          "fold": 5,
+          "held_out": 109,
+          "confidence_errors": 32,
+          "joint_errors": 32
+        }
+      ]
+    },
+    {
+      "seed": 20261113,
+      "model": "frozen_resnet18",
+      "images": 545,
+      "unfiltered_errors": 167,
+      "accepted": 440,
+      "confidence_errors": 114,
+      "confidence_risk": 0.2590909090909091,
+      "joint_errors": 114,
+      "joint_risk": 0.2590909090909091,
+      "joint_minus_confidence": 0.0,
+      "fold_counts": [
+        {
+          "fold": 1,
+          "held_out": 109,
+          "confidence_errors": 22,
+          "joint_errors": 22
+        },
+        {
+          "fold": 2,
+          "held_out": 109,
+          "confidence_errors": 25,
+          "joint_errors": 30
+        },
+        {
+          "fold": 3,
+          "held_out": 109,
+          "confidence_errors": 25,
+          "joint_errors": 22
+        },
+        {
+          "fold": 4,
+          "held_out": 109,
+          "confidence_errors": 19,
+          "joint_errors": 18
+        },
+        {
+          "fold": 5,
+          "held_out": 109,
+          "confidence_errors": 23,
+          "joint_errors": 22
+        }
+      ]
+    }
+  ],
+  "descriptive_ranges": {
+    "handcrafted": {
+      "mean_difference": 0.00045454545454545194,
+      "minimum_difference": -0.009090909090909094,
+      "maximum_difference": 0.004545454545454575,
+      "joint_fewer_errors": 1,
+      "equal_errors": 1,
+      "joint_more_errors": 3
+    },
+    "frozen_resnet18": {
+      "mean_difference": 0.006363636363636349,
+      "minimum_difference": 0.0,
+      "maximum_difference": 0.013636363636363613,
+      "joint_fewer_errors": 0,
+      "equal_errors": 2,
+      "joint_more_errors": 3
+    }
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit_learn": "1.8.0",
+    "pillow": "13.0.0",
+    "torch": "2.6.0+cpu",
+    "torchvision": "0.21.0+cpu"
+  }
+}

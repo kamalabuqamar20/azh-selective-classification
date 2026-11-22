@@ -1,0 +1,82 @@
+{
+  "analysis": "Aggregate audit of WoundsDB case descriptions; no model was trained or evaluated",
+  "dataset_doi": "10.7910/DVN/6A1HAG",
+  "metadata_file": "description.tab",
+  "metadata_source": "https://dataverse.harvard.edu/api/access/datafile/14118414",
+  "metadata_sha256": "ed5f27bcd21400168e45af85a018559ef75e51cf55cacb6700a74bfce480c31a",
+  "source_interpretation": "The provider describes case_X as a patient identifier and day_Y as a visit day.",
+  "results": {
+    "photo_records": 188,
+    "distinct_case_identifiers": 47,
+    "distinct_case_day_pairs": 79,
+    "case_groups_with_multiple_source_labels": 1,
+    "source_aetiology_counts": [
+      {
+        "source_aetiology": "Amputation",
+        "photo_records": 9,
+        "case_groups": 1
+      },
+      {
+        "source_aetiology": "Arteriovenous fistula failure",
+        "photo_records": 2,
+        "case_groups": 1
+      },
+      {
+        "source_aetiology": "Diabetic foot",
+        "photo_records": 8,
+        "case_groups": 2
+      },
+      {
+        "source_aetiology": "Ischaemia",
+        "photo_records": 24,
+        "case_groups": 6
+      },
+      {
+        "source_aetiology": "Lymphatic ulcers",
+        "photo_records": 2,
+        "case_groups": 1
+      },
+      {
+        "source_aetiology": "Lymphedema",
+        "photo_records": 3,
+        "case_groups": 1
+      },
+      {
+        "source_aetiology": "Mastectomy",
+        "photo_records": 2,
+        "case_groups": 1
+      },
+      {
+        "source_aetiology": "Venous insufficiency",
+        "photo_records": 50,
+        "case_groups": 14
+      },
+      {
+        "source_aetiology": "Venous ulcers",
+        "photo_records": 74,
+        "case_groups": 17
+      },
+      {
+        "source_aetiology": "Wound infection",
+        "photo_records": 7,
+        "case_groups": 4
+      },
+      {
+        "source_aetiology": "injury",
+        "photo_records": 7,
+        "case_groups": 1
+      }
+    ],
+    "labels_with_fewer_than_five_case_groups": [
+      "Amputation",
+      "Arteriovenous fistula failure",
+      "Diabetic foot",
+      "Lymphatic ulcers",
+      "Lymphedema",
+      "Mastectomy",
+      "Wound infection",
+      "injury"
+    ],
+    "interpretation": "Counts reflect the supplied table, not clinical validation; case groups may contribute to multiple labels."
+  }
+}

@@ -1,0 +1,1986 @@
+{
+  "analysis": "Exploratory patient-grouped LUTSeg necrotic-tissue-presence classification",
+  "retrospective_status": "Designed after AZH findings and LUTSeg metadata were inspected; class-balanced variants were added after the unweighted pilot was observed; not preregistered.",
+  "scope": "Different task from AZH four-class wound type; not an external validation of the AZH classifier.",
+  "dataset": {
+    "source": "https://huggingface.co/datasets/ksanchez84/LUTSeg",
+    "revision": "e5115d4b2e5ecfc727f530deca9f3b0d032fb4bb",
+    "metadata_sha256": "b5441614ed425eeb463769e0283843829fdb15e3124216c804fc95fe9846c596",
+    "manifest_sha256": "e95c821acaae2779787ee4641896ef0571189e1096e16d86245056673540b29a",
+    "images": 141,
+    "patient_groups": 39,
+    "positive_images": 32,
+    "positive_patient_groups": 16,
+    "negative_patient_groups": 36,
+    "decoded_pixel_audit": {
+      "unique_decoded_images": 141,
+      "within_patient_duplicate_images": 0,
+      "cross_patient_decoded_duplicates": 0,
+      "conflicting_target_labels": 0
+    }
+  },
+  "always_absent_reference": {
+    "images": 141,
+    "errors": 32,
+    "accuracy": 0.7730496453900709,
+    "positive_recall": 0.0,
+    "description": "Fixed constant comparator; not a trained or selective model."
+  },
+  "protocol": {
+    "target": "Binary image-level presence of at least one class-4 necrotic-tissue pixel in source reference mask metadata.",
+    "caveat": "Derived from segmentation metadata, not a separately clinically adjudicated binary diagnosis; threshold is any pixel.",
+    "grouping": "Five outer patient-disjoint folds; within each outer training pool, five group-disjoint inner folds separate classifier, temperature, and selector fitting.",
+    "outer_seed": 20261121,
+    "inner_seed": 20261122,
+    "requested_coverage": 0.8,
+    "selection": "Matched: per-fold test-score ranking. Fixed: threshold from calibration scores, frozen before held-out evaluation.",
+    "posthoc_class_weight": "Balanced loss variants were added after inspecting unweighted pilot results and remain exploratory.",
+    "data_usage": "Authors' published train/validation are pooled for this new exploratory grouped CV; no LUTSeg-trained weights are used.",
+    "limitations": "39 patients with leprosy-related ulcers; repeated observations, small inner subsets, synthetic binary target, no independent external cohort or clinical validation.",
+    "weights_url": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+    "weights_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec"
+  },
+  "models": {
+    "handcrafted": {
+      "class_weight": null,
+      "unfiltered": {
+        "images": 141,
+        "patient_groups": 39,
+        "accepted": 141,
+        "errors": 46,
+        "coverage": 1.0,
+        "risk": 0.3262411347517731,
+        "patients_with_retained_images": 39,
+        "patients_all_images_deferred": 0,
+        "mean_patient_error_rate": 0.33690476190476193,
+        "classes": {
+          "absent": {
+            "images": 109,
+            "accepted": 109,
+            "errors": 14,
+            "risk": 0.12844036697247707
+          },
+          "present": {
+            "images": 32,
+            "accepted": 32,
+            "errors": 32,
+            "risk": 1.0
+          }
+        }
+      },
+      "unfiltered_errors": 46,
+      "unfiltered_accuracy": 0.6737588652482269,
+      "selection": {
+        "matched_coverage": {
+          "confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 31,
+            "coverage": 0.8156028368794326,
+            "risk": 0.26956521739130435,
+            "patients_with_retained_images": 38,
+            "patients_all_images_deferred": 1,
+            "mean_patient_error_rate": 0.24580200501253133,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 86,
+                "errors": 2,
+                "risk": 0.023255813953488372
+              },
+              "present": {
+                "images": 32,
+                "accepted": 29,
+                "errors": 29,
+                "risk": 1.0
+              }
+            }
+          },
+          "learned_confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 36,
+            "coverage": 0.8156028368794326,
+            "risk": 0.3130434782608696,
+            "patients_with_retained_images": 37,
+            "patients_all_images_deferred": 2,
+            "mean_patient_error_rate": 0.2939510939510939,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 85,
+                "errors": 6,
+                "risk": 0.07058823529411765
+              },
+              "present": {
+                "images": 32,
+                "accepted": 30,
+                "errors": 30,
+                "risk": 1.0
+              }
+            }
+          },
+          "confidence_plus_focus": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 36,
+            "coverage": 0.8156028368794326,
+            "risk": 0.3130434782608696,
+            "patients_with_retained_images": 35,
+            "patients_all_images_deferred": 4,
+            "mean_patient_error_rate": 0.31217687074829925,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 91,
+                "errors": 12,
+                "risk": 0.13186813186813187
+              },
+              "present": {
+                "images": 32,
+                "accepted": 24,
+                "errors": 24,
+                "risk": 1.0
+              }
+            }
+          }
+        },
+        "fixed_threshold": {
+          "confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 93,
+            "errors": 21,
+            "coverage": 0.6595744680851063,
+            "risk": 0.22580645161290322,
+            "patients_with_retained_images": 33,
+            "patients_all_images_deferred": 6,
+            "mean_patient_error_rate": 0.21053391053391055,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 72,
+                "errors": 0,
+                "risk": 0.0
+              },
+              "present": {
+                "images": 32,
+                "accepted": 21,
+                "errors": 21,
+                "risk": 1.0
+              }
+            }
+          },
+          "learned_confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 91,
+            "errors": 25,
+            "coverage": 0.6453900709219859,
+            "risk": 0.27472527472527475,
+            "patients_with_retained_images": 32,
+            "patients_all_images_deferred": 7,
+            "mean_patient_error_rate": 0.26875,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 70,
+                "errors": 4,
+                "risk": 0.05714285714285714
+              },
+              "present": {
+                "images": 32,
+                "accepted": 21,
+                "errors": 21,
+                "risk": 1.0
+              }
+            }
+          },
+          "confidence_plus_focus": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 101,
+            "errors": 27,
+            "coverage": 0.7163120567375887,
+            "risk": 0.26732673267326734,
+            "patients_with_retained_images": 34,
+            "patients_all_images_deferred": 5,
+            "mean_patient_error_rate": 0.2958683473389356,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 81,
+                "errors": 7,
+                "risk": 0.08641975308641975
+              },
+              "present": {
+                "images": 32,
+                "accepted": 20,
+                "errors": 20,
+                "risk": 1.0
+              }
+            }
+          }
+        }
+      },
+      "folds": [
+        {
+          "fold": 1,
+          "sizes": {
+            "model_fit": {
+              "images": 68,
+              "patient_groups": 21,
+              "positive_images": 16
+            },
+            "calibration": {
+              "images": 23,
+              "patient_groups": 6,
+              "positive_images": 6
+            },
+            "selector_fit": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 4
+            },
+            "test": {
+              "images": 28,
+              "patient_groups": 7,
+              "positive_images": 6
+            }
+          },
+          "temperature": 2.8333404959811483,
+          "unfiltered_errors": 7,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 4
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 4
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 18,
+                "errors": 6
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 24,
+                "errors": 7
+              }
+            }
+          }
+        },
+        {
+          "fold": 2,
+          "sizes": {
+            "model_fit": {
+              "images": 71,
+              "patient_groups": 22,
+              "positive_images": 16
+            },
+            "calibration": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 26,
+              "patient_groups": 7,
+              "positive_images": 5
+            }
+          },
+          "temperature": 1.359891298993139,
+          "unfiltered_errors": 8,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 20,
+                "errors": 5
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 7
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 16,
+                "errors": 3
+              }
+            }
+          }
+        },
+        {
+          "fold": 3,
+          "sizes": {
+            "model_fit": {
+              "images": 64,
+              "patient_groups": 18,
+              "positive_images": 13
+            },
+            "calibration": {
+              "images": 23,
+              "patient_groups": 6,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 25,
+              "patient_groups": 7,
+              "positive_images": 7
+            },
+            "test": {
+              "images": 29,
+              "patient_groups": 8,
+              "positive_images": 7
+            }
+          },
+          "temperature": 3.4594829853887745,
+          "unfiltered_errors": 8,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 19,
+                "errors": 3
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 19,
+                "errors": 3
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 19,
+                "errors": 3
+              }
+            }
+          }
+        },
+        {
+          "fold": 4,
+          "sizes": {
+            "model_fit": {
+              "images": 64,
+              "patient_groups": 19,
+              "positive_images": 14
+            },
+            "calibration": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 27,
+              "patient_groups": 7,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 28,
+              "patient_groups": 8,
+              "positive_images": 7
+            }
+          },
+          "temperature": 3.524097023091603,
+          "unfiltered_errors": 9,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 15,
+                "errors": 4
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 15,
+                "errors": 4
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 25,
+                "errors": 7
+              }
+            }
+          }
+        },
+        {
+          "fold": 5,
+          "sizes": {
+            "model_fit": {
+              "images": 67,
+              "patient_groups": 18,
+              "positive_images": 15
+            },
+            "calibration": {
+              "images": 20,
+              "patient_groups": 5,
+              "positive_images": 4
+            },
+            "selector_fit": {
+              "images": 24,
+              "patient_groups": 7,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 30,
+              "patient_groups": 9,
+              "positive_images": 7
+            }
+          },
+          "temperature": 3.2015983628513385,
+          "unfiltered_errors": 14,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 9
+              },
+              "fixed_threshold": {
+                "accepted": 16,
+                "errors": 5
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 9
+              },
+              "fixed_threshold": {
+                "accepted": 16,
+                "errors": 5
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 11
+              },
+              "fixed_threshold": {
+                "accepted": 17,
+                "errors": 7
+              }
+            }
+          }
+        }
+      ]
+    },
+    "handcrafted_balanced": {
+      "class_weight": "balanced",
+      "unfiltered": {
+        "images": 141,
+        "patient_groups": 39,
+        "accepted": 141,
+        "errors": 53,
+        "coverage": 1.0,
+        "risk": 0.375886524822695,
+        "patients_with_retained_images": 39,
+        "patients_all_images_deferred": 0,
+        "mean_patient_error_rate": 0.37216117216117217,
+        "classes": {
+          "absent": {
+            "images": 109,
+            "accepted": 109,
+            "errors": 23,
+            "risk": 0.21100917431192662
+          },
+          "present": {
+            "images": 32,
+            "accepted": 32,
+            "errors": 30,
+            "risk": 0.9375
+          }
+        }
+      },
+      "unfiltered_errors": 53,
+      "unfiltered_accuracy": 0.624113475177305,
+      "selection": {
+        "matched_coverage": {
+          "confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 39,
+            "coverage": 0.8156028368794326,
+            "risk": 0.3391304347826087,
+            "patients_with_retained_images": 38,
+            "patients_all_images_deferred": 1,
+            "mean_patient_error_rate": 0.3580827067669173,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 92,
+                "errors": 16,
+                "risk": 0.17391304347826086
+              },
+              "present": {
+                "images": 32,
+                "accepted": 23,
+                "errors": 23,
+                "risk": 1.0
+              }
+            }
+          },
+          "learned_confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 39,
+            "coverage": 0.8156028368794326,
+            "risk": 0.3391304347826087,
+            "patients_with_retained_images": 38,
+            "patients_all_images_deferred": 1,
+            "mean_patient_error_rate": 0.35426065162907266,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 93,
+                "errors": 17,
+                "risk": 0.1827956989247312
+              },
+              "present": {
+                "images": 32,
+                "accepted": 22,
+                "errors": 22,
+                "risk": 1.0
+              }
+            }
+          },
+          "confidence_plus_focus": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 38,
+            "coverage": 0.8156028368794326,
+            "risk": 0.33043478260869563,
+            "patients_with_retained_images": 37,
+            "patients_all_images_deferred": 2,
+            "mean_patient_error_rate": 0.32284427284427286,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 90,
+                "errors": 14,
+                "risk": 0.15555555555555556
+              },
+              "present": {
+                "images": 32,
+                "accepted": 25,
+                "errors": 24,
+                "risk": 0.96
+              }
+            }
+          }
+        },
+        "fixed_threshold": {
+          "confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 98,
+            "errors": 28,
+            "coverage": 0.6950354609929078,
+            "risk": 0.2857142857142857,
+            "patients_with_retained_images": 34,
+            "patients_all_images_deferred": 5,
+            "mean_patient_error_rate": 0.3058123249299719,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 76,
+                "errors": 7,
+                "risk": 0.09210526315789473
+              },
+              "present": {
+                "images": 32,
+                "accepted": 22,
+                "errors": 21,
+                "risk": 0.9545454545454546
+              }
+            }
+          },
+          "learned_confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 101,
+            "errors": 28,
+            "coverage": 0.7163120567375887,
+            "risk": 0.27722772277227725,
+            "patients_with_retained_images": 34,
+            "patients_all_images_deferred": 5,
+            "mean_patient_error_rate": 0.2966386554621849,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 80,
+                "errors": 8,
+                "risk": 0.1
+              },
+              "present": {
+                "images": 32,
+                "accepted": 21,
+                "errors": 20,
+                "risk": 0.9523809523809523
+              }
+            }
+          },
+          "confidence_plus_focus": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 103,
+            "errors": 31,
+            "coverage": 0.7304964539007093,
+            "risk": 0.30097087378640774,
+            "patients_with_retained_images": 34,
+            "patients_all_images_deferred": 5,
+            "mean_patient_error_rate": 0.3035014005602241,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 82,
+                "errors": 11,
+                "risk": 0.13414634146341464
+              },
+              "present": {
+                "images": 32,
+                "accepted": 21,
+                "errors": 20,
+                "risk": 0.9523809523809523
+              }
+            }
+          }
+        }
+      },
+      "folds": [
+        {
+          "fold": 1,
+          "sizes": {
+            "model_fit": {
+              "images": 68,
+              "patient_groups": 21,
+              "positive_images": 16
+            },
+            "calibration": {
+              "images": 23,
+              "patient_groups": 6,
+              "positive_images": 6
+            },
+            "selector_fit": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 4
+            },
+            "test": {
+              "images": 28,
+              "patient_groups": 7,
+              "positive_images": 6
+            }
+          },
+          "temperature": 3.022476152604228,
+          "unfiltered_errors": 7,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 26,
+                "errors": 6
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 26,
+                "errors": 6
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 24,
+                "errors": 5
+              }
+            }
+          }
+        },
+        {
+          "fold": 2,
+          "sizes": {
+            "model_fit": {
+              "images": 71,
+              "patient_groups": 22,
+              "positive_images": 16
+            },
+            "calibration": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 26,
+              "patient_groups": 7,
+              "positive_images": 5
+            }
+          },
+          "temperature": 1.1525530589846578,
+          "unfiltered_errors": 9,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 20,
+                "errors": 8
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 8
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 18,
+                "errors": 4
+              }
+            }
+          }
+        },
+        {
+          "fold": 3,
+          "sizes": {
+            "model_fit": {
+              "images": 64,
+              "patient_groups": 18,
+              "positive_images": 13
+            },
+            "calibration": {
+              "images": 23,
+              "patient_groups": 6,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 25,
+              "patient_groups": 7,
+              "positive_images": 7
+            },
+            "test": {
+              "images": 29,
+              "patient_groups": 8,
+              "positive_images": 7
+            }
+          },
+          "temperature": 3.635154319693197,
+          "unfiltered_errors": 11,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 20,
+                "errors": 4
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 20,
+                "errors": 4
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 7
+              }
+            }
+          }
+        },
+        {
+          "fold": 4,
+          "sizes": {
+            "model_fit": {
+              "images": 64,
+              "patient_groups": 19,
+              "positive_images": 14
+            },
+            "calibration": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 27,
+              "patient_groups": 7,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 28,
+              "patient_groups": 8,
+              "positive_images": 7
+            }
+          },
+          "temperature": 3.346175395116874,
+          "unfiltered_errors": 11,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 15,
+                "errors": 4
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 15,
+                "errors": 4
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 18,
+                "errors": 5
+              }
+            }
+          }
+        },
+        {
+          "fold": 5,
+          "sizes": {
+            "model_fit": {
+              "images": 67,
+              "patient_groups": 18,
+              "positive_images": 15
+            },
+            "calibration": {
+              "images": 20,
+              "patient_groups": 5,
+              "positive_images": 4
+            },
+            "selector_fit": {
+              "images": 24,
+              "patient_groups": 7,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 30,
+              "patient_groups": 9,
+              "positive_images": 7
+            }
+          },
+          "temperature": 3.152800599145731,
+          "unfiltered_errors": 15,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 12
+              },
+              "fixed_threshold": {
+                "accepted": 17,
+                "errors": 6
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 12
+              },
+              "fixed_threshold": {
+                "accepted": 17,
+                "errors": 6
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 12
+              },
+              "fixed_threshold": {
+                "accepted": 20,
+                "errors": 10
+              }
+            }
+          }
+        }
+      ]
+    },
+    "frozen_resnet18": {
+      "class_weight": null,
+      "unfiltered": {
+        "images": 141,
+        "patient_groups": 39,
+        "accepted": 141,
+        "errors": 42,
+        "coverage": 1.0,
+        "risk": 0.2978723404255319,
+        "patients_with_retained_images": 39,
+        "patients_all_images_deferred": 0,
+        "mean_patient_error_rate": 0.2811965811965812,
+        "classes": {
+          "absent": {
+            "images": 109,
+            "accepted": 109,
+            "errors": 15,
+            "risk": 0.13761467889908258
+          },
+          "present": {
+            "images": 32,
+            "accepted": 32,
+            "errors": 27,
+            "risk": 0.84375
+          }
+        }
+      },
+      "unfiltered_errors": 42,
+      "unfiltered_accuracy": 0.7021276595744681,
+      "selection": {
+        "matched_coverage": {
+          "confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 31,
+            "coverage": 0.8156028368794326,
+            "risk": 0.26956521739130435,
+            "patients_with_retained_images": 37,
+            "patients_all_images_deferred": 2,
+            "mean_patient_error_rate": 0.23494208494208496,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 89,
+                "errors": 9,
+                "risk": 0.10112359550561797
+              },
+              "present": {
+                "images": 32,
+                "accepted": 26,
+                "errors": 22,
+                "risk": 0.8461538461538461
+              }
+            }
+          },
+          "learned_confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 33,
+            "coverage": 0.8156028368794326,
+            "risk": 0.28695652173913044,
+            "patients_with_retained_images": 37,
+            "patients_all_images_deferred": 2,
+            "mean_patient_error_rate": 0.25205920205920207,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 88,
+                "errors": 10,
+                "risk": 0.11363636363636363
+              },
+              "present": {
+                "images": 32,
+                "accepted": 27,
+                "errors": 23,
+                "risk": 0.8518518518518519
+              }
+            }
+          },
+          "confidence_plus_focus": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 33,
+            "coverage": 0.8156028368794326,
+            "risk": 0.28695652173913044,
+            "patients_with_retained_images": 38,
+            "patients_all_images_deferred": 1,
+            "mean_patient_error_rate": 0.2379072681704261,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 88,
+                "errors": 11,
+                "risk": 0.125
+              },
+              "present": {
+                "images": 32,
+                "accepted": 27,
+                "errors": 22,
+                "risk": 0.8148148148148148
+              }
+            }
+          }
+        },
+        "fixed_threshold": {
+          "confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 122,
+            "errors": 33,
+            "coverage": 0.8652482269503546,
+            "risk": 0.27049180327868855,
+            "patients_with_retained_images": 36,
+            "patients_all_images_deferred": 3,
+            "mean_patient_error_rate": 0.2310185185185185,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 95,
+                "errors": 9,
+                "risk": 0.09473684210526316
+              },
+              "present": {
+                "images": 32,
+                "accepted": 27,
+                "errors": 24,
+                "risk": 0.8888888888888888
+              }
+            }
+          },
+          "learned_confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 116,
+            "errors": 33,
+            "coverage": 0.8226950354609929,
+            "risk": 0.28448275862068967,
+            "patients_with_retained_images": 36,
+            "patients_all_images_deferred": 3,
+            "mean_patient_error_rate": 0.23703703703703705,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 90,
+                "errors": 10,
+                "risk": 0.1111111111111111
+              },
+              "present": {
+                "images": 32,
+                "accepted": 26,
+                "errors": 23,
+                "risk": 0.8846153846153846
+              }
+            }
+          },
+          "confidence_plus_focus": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 35,
+            "coverage": 0.8156028368794326,
+            "risk": 0.30434782608695654,
+            "patients_with_retained_images": 38,
+            "patients_all_images_deferred": 1,
+            "mean_patient_error_rate": 0.27030075187969926,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 87,
+                "errors": 11,
+                "risk": 0.12643678160919541
+              },
+              "present": {
+                "images": 32,
+                "accepted": 28,
+                "errors": 24,
+                "risk": 0.8571428571428571
+              }
+            }
+          }
+        }
+      },
+      "folds": [
+        {
+          "fold": 1,
+          "sizes": {
+            "model_fit": {
+              "images": 68,
+              "patient_groups": 21,
+              "positive_images": 16
+            },
+            "calibration": {
+              "images": 23,
+              "patient_groups": 6,
+              "positive_images": 6
+            },
+            "selector_fit": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 4
+            },
+            "test": {
+              "images": 28,
+              "patient_groups": 7,
+              "positive_images": 6
+            }
+          },
+          "temperature": 2.4625211976822707,
+          "unfiltered_errors": 10,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 26,
+                "errors": 10
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 26,
+                "errors": 10
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 24,
+                "errors": 8
+              }
+            }
+          }
+        },
+        {
+          "fold": 2,
+          "sizes": {
+            "model_fit": {
+              "images": 71,
+              "patient_groups": 22,
+              "positive_images": 16
+            },
+            "calibration": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 26,
+              "patient_groups": 7,
+              "positive_images": 5
+            }
+          },
+          "temperature": 1.5942507284151661,
+          "unfiltered_errors": 6,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 25,
+                "errors": 6
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 25,
+                "errors": 6
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 20,
+                "errors": 5
+              }
+            }
+          }
+        },
+        {
+          "fold": 3,
+          "sizes": {
+            "model_fit": {
+              "images": 64,
+              "patient_groups": 18,
+              "positive_images": 13
+            },
+            "calibration": {
+              "images": 23,
+              "patient_groups": 6,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 25,
+              "patient_groups": 7,
+              "positive_images": 7
+            },
+            "test": {
+              "images": 29,
+              "patient_groups": 8,
+              "positive_images": 7
+            }
+          },
+          "temperature": 2.2472193797278806,
+          "unfiltered_errors": 9,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 7
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 7
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 22,
+                "errors": 7
+              }
+            }
+          }
+        },
+        {
+          "fold": 4,
+          "sizes": {
+            "model_fit": {
+              "images": 64,
+              "patient_groups": 19,
+              "positive_images": 14
+            },
+            "calibration": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 27,
+              "patient_groups": 7,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 28,
+              "patient_groups": 8,
+              "positive_images": 7
+            }
+          },
+          "temperature": 2.3074370630341656,
+          "unfiltered_errors": 9,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 19,
+                "errors": 3
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 19,
+                "errors": 3
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 26,
+                "errors": 9
+              }
+            }
+          }
+        },
+        {
+          "fold": 5,
+          "sizes": {
+            "model_fit": {
+              "images": 67,
+              "patient_groups": 18,
+              "positive_images": 15
+            },
+            "calibration": {
+              "images": 20,
+              "patient_groups": 5,
+              "positive_images": 4
+            },
+            "selector_fit": {
+              "images": 24,
+              "patient_groups": 7,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 30,
+              "patient_groups": 9,
+              "positive_images": 7
+            }
+          },
+          "temperature": 1.6899043965513818,
+          "unfiltered_errors": 8,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 29,
+                "errors": 7
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 7
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 6
+              }
+            }
+          }
+        }
+      ]
+    },
+    "frozen_resnet18_balanced": {
+      "class_weight": "balanced",
+      "unfiltered": {
+        "images": 141,
+        "patient_groups": 39,
+        "accepted": 141,
+        "errors": 47,
+        "coverage": 1.0,
+        "risk": 0.3333333333333333,
+        "patients_with_retained_images": 39,
+        "patients_all_images_deferred": 0,
+        "mean_patient_error_rate": 0.3111111111111111,
+        "classes": {
+          "absent": {
+            "images": 109,
+            "accepted": 109,
+            "errors": 22,
+            "risk": 0.2018348623853211
+          },
+          "present": {
+            "images": 32,
+            "accepted": 32,
+            "errors": 25,
+            "risk": 0.78125
+          }
+        }
+      },
+      "unfiltered_errors": 47,
+      "unfiltered_accuracy": 0.6666666666666667,
+      "selection": {
+        "matched_coverage": {
+          "confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 33,
+            "coverage": 0.8156028368794326,
+            "risk": 0.28695652173913044,
+            "patients_with_retained_images": 38,
+            "patients_all_images_deferred": 1,
+            "mean_patient_error_rate": 0.26823308270676693,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 91,
+                "errors": 14,
+                "risk": 0.15384615384615385
+              },
+              "present": {
+                "images": 32,
+                "accepted": 24,
+                "errors": 19,
+                "risk": 0.7916666666666666
+              }
+            }
+          },
+          "learned_confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 37,
+            "coverage": 0.8156028368794326,
+            "risk": 0.3217391304347826,
+            "patients_with_retained_images": 38,
+            "patients_all_images_deferred": 1,
+            "mean_patient_error_rate": 0.2783208020050125,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 91,
+                "errors": 19,
+                "risk": 0.2087912087912088
+              },
+              "present": {
+                "images": 32,
+                "accepted": 24,
+                "errors": 18,
+                "risk": 0.75
+              }
+            }
+          },
+          "confidence_plus_focus": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 115,
+            "errors": 39,
+            "coverage": 0.8156028368794326,
+            "risk": 0.3391304347826087,
+            "patients_with_retained_images": 39,
+            "patients_all_images_deferred": 0,
+            "mean_patient_error_rate": 0.29249084249084245,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 90,
+                "errors": 20,
+                "risk": 0.2222222222222222
+              },
+              "present": {
+                "images": 32,
+                "accepted": 25,
+                "errors": 19,
+                "risk": 0.76
+              }
+            }
+          }
+        },
+        "fixed_threshold": {
+          "confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 124,
+            "errors": 39,
+            "coverage": 0.8794326241134752,
+            "risk": 0.31451612903225806,
+            "patients_with_retained_images": 38,
+            "patients_all_images_deferred": 1,
+            "mean_patient_error_rate": 0.2796365914786967,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 97,
+                "errors": 17,
+                "risk": 0.17525773195876287
+              },
+              "present": {
+                "images": 32,
+                "accepted": 27,
+                "errors": 22,
+                "risk": 0.8148148148148148
+              }
+            }
+          },
+          "learned_confidence": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 120,
+            "errors": 40,
+            "coverage": 0.851063829787234,
+            "risk": 0.3333333333333333,
+            "patients_with_retained_images": 38,
+            "patients_all_images_deferred": 1,
+            "mean_patient_error_rate": 0.28709273182957395,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 94,
+                "errors": 20,
+                "risk": 0.2127659574468085
+              },
+              "present": {
+                "images": 32,
+                "accepted": 26,
+                "errors": 20,
+                "risk": 0.7692307692307693
+              }
+            }
+          },
+          "confidence_plus_focus": {
+            "images": 141,
+            "patient_groups": 39,
+            "accepted": 119,
+            "errors": 42,
+            "coverage": 0.8439716312056738,
+            "risk": 0.35294117647058826,
+            "patients_with_retained_images": 39,
+            "patients_all_images_deferred": 0,
+            "mean_patient_error_rate": 0.31507936507936507,
+            "classes": {
+              "absent": {
+                "images": 109,
+                "accepted": 93,
+                "errors": 21,
+                "risk": 0.22580645161290322
+              },
+              "present": {
+                "images": 32,
+                "accepted": 26,
+                "errors": 21,
+                "risk": 0.8076923076923077
+              }
+            }
+          }
+        }
+      },
+      "folds": [
+        {
+          "fold": 1,
+          "sizes": {
+            "model_fit": {
+              "images": 68,
+              "patient_groups": 21,
+              "positive_images": 16
+            },
+            "calibration": {
+              "images": 23,
+              "patient_groups": 6,
+              "positive_images": 6
+            },
+            "selector_fit": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 4
+            },
+            "test": {
+              "images": 28,
+              "patient_groups": 7,
+              "positive_images": 6
+            }
+          },
+          "temperature": 3.7201182290446884,
+          "unfiltered_errors": 11,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 28,
+                "errors": 11
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 28,
+                "errors": 11
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 8
+              },
+              "fixed_threshold": {
+                "accepted": 24,
+                "errors": 9
+              }
+            }
+          }
+        },
+        {
+          "fold": 2,
+          "sizes": {
+            "model_fit": {
+              "images": 71,
+              "patient_groups": 22,
+              "positive_images": 16
+            },
+            "calibration": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 26,
+              "patient_groups": 7,
+              "positive_images": 5
+            }
+          },
+          "temperature": 1.4996620207157139,
+          "unfiltered_errors": 7,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 6
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 6
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 21,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 18,
+                "errors": 5
+              }
+            }
+          }
+        },
+        {
+          "fold": 3,
+          "sizes": {
+            "model_fit": {
+              "images": 64,
+              "patient_groups": 18,
+              "positive_images": 13
+            },
+            "calibration": {
+              "images": 23,
+              "patient_groups": 6,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 25,
+              "patient_groups": 7,
+              "positive_images": 7
+            },
+            "test": {
+              "images": 29,
+              "patient_groups": 8,
+              "positive_images": 7
+            }
+          },
+          "temperature": 2.3813469347542657,
+          "unfiltered_errors": 13,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 9
+              },
+              "fixed_threshold": {
+                "accepted": 25,
+                "errors": 10
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 12
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 11
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 12
+              },
+              "fixed_threshold": {
+                "accepted": 25,
+                "errors": 13
+              }
+            }
+          }
+        },
+        {
+          "fold": 4,
+          "sizes": {
+            "model_fit": {
+              "images": 64,
+              "patient_groups": 19,
+              "positive_images": 14
+            },
+            "calibration": {
+              "images": 22,
+              "patient_groups": 5,
+              "positive_images": 5
+            },
+            "selector_fit": {
+              "images": 27,
+              "patient_groups": 7,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 28,
+              "patient_groups": 8,
+              "positive_images": 7
+            }
+          },
+          "temperature": 2.036718227961561,
+          "unfiltered_errors": 9,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 6
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 6
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 23,
+                "errors": 7
+              },
+              "fixed_threshold": {
+                "accepted": 28,
+                "errors": 9
+              }
+            }
+          }
+        },
+        {
+          "fold": 5,
+          "sizes": {
+            "model_fit": {
+              "images": 67,
+              "patient_groups": 18,
+              "positive_images": 15
+            },
+            "calibration": {
+              "images": 20,
+              "patient_groups": 5,
+              "positive_images": 4
+            },
+            "selector_fit": {
+              "images": 24,
+              "patient_groups": 7,
+              "positive_images": 6
+            },
+            "test": {
+              "images": 30,
+              "patient_groups": 9,
+              "positive_images": 7
+            }
+          },
+          "temperature": 1.6017772032688458,
+          "unfiltered_errors": 7,
+          "policies": {
+            "confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 5
+              },
+              "fixed_threshold": {
+                "accepted": 25,
+                "errors": 6
+              }
+            },
+            "learned_confidence": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 23,
+                "errors": 6
+              }
+            },
+            "confidence_plus_focus": {
+              "matched_coverage": {
+                "accepted": 24,
+                "errors": 6
+              },
+              "fixed_threshold": {
+                "accepted": 24,
+                "errors": 6
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit_learn": "1.8.0",
+    "pillow": "13.0.0",
+    "torch": "2.6.0+cpu",
+    "torchvision": "0.21.0+cpu"
+  }
+}

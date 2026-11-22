@@ -1,0 +1,46 @@
+{
+  "analysis": "Aggregate verification and necrotic-area audit of source LUTSeg masks",
+  "dataset": {
+    "source": "https://huggingface.co/datasets/ksanchez84/LUTSeg",
+    "revision": "e5115d4b2e5ecfc727f530deca9f3b0d032fb4bb",
+    "metadata_sha256": "b5441614ed425eeb463769e0283843829fdb15e3124216c804fc95fe9846c596",
+    "manifest_sha256": "e95c821acaae2779787ee4641896ef0571189e1096e16d86245056673540b29a"
+  },
+  "protocol": {
+    "mask_class": 4,
+    "denominator": "number of pixels assigned any wound tissue class 1-5",
+    "checks": "source metadata classes and RGB/mask dimensions checked for every image",
+    "limitations": "reference annotation uncertainty, wound-area thresholds are descriptive and not clinical definitions"
+  },
+  "summary": {
+    "images": 141,
+    "patient_groups": 39,
+    "positive_images": 32,
+    "positive_patient_groups": 16,
+    "positive_fraction_min": 0.005900610123086727,
+    "positive_fraction_median": 0.11181622531839383,
+    "positive_fraction_max": 0.815714534782356,
+    "minimum_area_thresholds": [
+      {
+        "threshold_fraction": 0.001,
+        "images": 32,
+        "patient_groups": 16
+      },
+      {
+        "threshold_fraction": 0.01,
+        "images": 28,
+        "patient_groups": 16
+      },
+      {
+        "threshold_fraction": 0.05,
+        "images": 21,
+        "patient_groups": 14
+      },
+      {
+        "threshold_fraction": 0.1,
+        "images": 18,
+        "patient_groups": 11
+      }
+    ]
+  }
+}
