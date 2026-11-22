@@ -4,7 +4,7 @@ This is the preserved note from the earlier standalone bundle. Its output paths 
 
 # AZH selective classification pilot
 
-8 November 2026. This is an AI-assisted exploratory analysis prepared to inform a master's research proposal.
+8 November 2026. This is an exploratory analysis prepared to inform a master's research proposal.
 
 The pilot asked whether a focus proxy adds information to confidence when a fixed classifier can defer predictions. It used four AZH wound-type labels (diabetic, pressure, surgical and venous), which differ from the infection/ischaemia labels in DFUC2021.
 
