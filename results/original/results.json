@@ -1,5 +1,5 @@
 {
-  "run_label": "AI-assisted exploratory four-class AZH image benchmark",
+  "run_label": "Exploratory four-class AZH image benchmark",
   "source": {
     "repository": "https://github.com/uwm-bigdata/wound-classification-using-images-and-locations",
     "commit": "e7dd90de113dcbd39665f2bd0e5613adeffff5fa",
