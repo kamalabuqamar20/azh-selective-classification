@@ -47,8 +47,7 @@ preregistered protocol or a result established by the current pilots.
   patients, using a binary label derived from tissue-mask metadata. This is a
   different task, not an external evaluation of the four-class AZH model.
 - Prepared code, aggregate results, data hashes and offline tests for the
-  research prototype. The experimental implementation and analysis were
-  developed with AI assistance.
+  research prototype.
 
 ## What the results support
 
