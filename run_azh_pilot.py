@@ -290,7 +290,7 @@ def main() -> None:
             }
     all_splits = {"model_fit": train, "temperature_fit": calib, "joint_selector_fit": selector, "test": test}
     out = {
-        "run_label": "AI-assisted exploratory four-class AZH image benchmark",
+        "run_label": "Exploratory four-class AZH image benchmark",
         "source": {"repository": REPOSITORY, "commit": COMMIT,
                    "archive_sha256": {v[0]: v[1] for v in ARCHIVES.values()}},
         "dataset_audit": audit,
