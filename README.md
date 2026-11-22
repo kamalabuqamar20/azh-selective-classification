@@ -2,7 +2,7 @@
 
 An exploratory, reproducible study of **selective classification** on wound images: a classifier can keep a prediction or defer it. The question is whether a simple focus proxy helps identify errors that a temperature-scaled confidence score misses.
 
-**Project context:** research preparation by [Kamal Abu Qamar](https://github.com/kamalabuqamar20), motivated by GazaCare AI. The experimental implementation and analysis were developed with AI assistance. The code, fixed splits, aggregate outputs and limitations are available for review.
+**Project context:** research preparation by [Kamal Abu Qamar](https://github.com/kamalabuqamar20), motivated by GazaCare AI. The code, fixed splits, aggregate outputs and limitations are available for review.
 
 [Read the research brief](docs/RESEARCH_BRIEF.md) · [Proposed next study](docs/RESEARCH_PROPOSAL.md) · [Methods](docs/METHODS.md) · [Patient-data feasibility](docs/PATIENT_DATA_FEASIBILITY.md)
 
